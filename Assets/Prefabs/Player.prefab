@@ -584,7 +584,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881028072788716075}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 99.3
   m_UseGravity: 1
@@ -734,6 +734,7 @@ MonoBehaviour:
   player: {fileID: 5881028072788716075}
   particleSystems: {fileID: 7554621953983302378, guid: 5a3760dd705dd49c7b841271d6e3fd28,
     type: 3}
+  hasPowerUp: 0
 --- !u!1 &5881028072788718571
 GameObject:
   m_ObjectHideFlags: 0

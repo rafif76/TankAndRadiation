@@ -36,8 +36,7 @@ public class SpawnManager : MonoBehaviour
     // public float maxSpawningInterval = 2.0f;
 
 
-    public int maxSpawnCount = 10;
-
+    private int maxSpawnCount = 5;
     private int currentSpawnCount = 0;
 
 
@@ -53,8 +52,9 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnRandomCars", startSpawning, repeatRate);
         InvokeRepeating("SpawnPowerUp", startSpawningPow, repeatRatePow);
 
-  
-       
+
+          currentSpawnCount = powerUp.transform.childCount;
+
 
 
         once = true;
@@ -64,7 +64,8 @@ public class SpawnManager : MonoBehaviour
 
     void FixedUpdate()
     {
-    
+
+        detectSumOfPowerUp();
 
         if (once)
         {
@@ -98,6 +99,13 @@ public class SpawnManager : MonoBehaviour
         Instantiate(player, Vector3.zero, Quaternion.identity);
     }
 
+
+    private void detectSumOfPowerUp()
+    {
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("PowerUp");
+         currentSpawnCount = objectsWithTag.Length;
+
+    }
    
 
 
@@ -123,7 +131,7 @@ public class SpawnManager : MonoBehaviour
             Instantiate(powerUp, GenerateSpawnPosition(), transform.rotation);
             Debug.Log("Spawned Prefab: " + currentSpawnCount);
         }
-
+      
 
     }
 

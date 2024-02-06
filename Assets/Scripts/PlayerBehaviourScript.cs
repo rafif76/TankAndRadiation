@@ -218,7 +218,7 @@ public class PlayerBehaviourScript : MonoBehaviour
             playerAudio.PlayOneShot(crashSound, 1.0f);
     
             Destroy(collision.gameObject);
-            playParticle();
+            // playParticle(); <- kita mngunakan scrpt yg berisi effek prtkel di msing2 gmeobjek cars.
 
             StartCoroutine(PowerupCountdownRoutine(waitForSecondsPublicVariable, false));
         }
@@ -271,18 +271,6 @@ public class PlayerBehaviourScript : MonoBehaviour
 
 
         }
-    }
-
-    private void playParticle()
-    {
-
-
-        int carsIndex = Random.Range(0, spawnManager.cars.Length);
-
-        // Mainkan partikel effect.
-        Instantiate(particleSystems, spawnManager.cars[carsIndex].transform.position + new Vector3(0f,0f,10f), Quaternion.identity);
-            particleSystem.Play();
-
     }
 
  }
