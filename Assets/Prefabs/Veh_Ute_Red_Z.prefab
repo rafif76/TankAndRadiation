@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 3139626471858265085}
   - component: {fileID: 8244042722129653042}
   - component: {fileID: 5453863670141380063}
+  - component: {fileID: 114149627097511980}
   m_Layer: 0
   m_Name: Veh_Ute_Red_Z
   m_TagString: Cars
@@ -401,6 +402,20 @@ MonoBehaviour:
   topBounds: 67
   lowerBounds: -47
   yLowerBounds: -5
+--- !u!114 &114149627097511980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462049546815394955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca97c674dae940b09635e4474be22eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystems: {fileID: 7554621953983302378, guid: 5a3760dd705dd49c7b841271d6e3fd28,
+    type: 3}
 --- !u!1 &462049546815399095
 GameObject:
   m_ObjectHideFlags: 0

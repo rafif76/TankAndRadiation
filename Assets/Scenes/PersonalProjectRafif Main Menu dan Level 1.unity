@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21924,7 +21924,7 @@ MonoBehaviour:
   - {fileID: 3658097104495827780, guid: 673509d62b36022409a4c0d509fb09b0, type: 3}
   - {fileID: 462049546815394955, guid: 60946feb7ba91424bb88fef8d4e626f2, type: 3}
   - {fileID: 7385169520966151155, guid: 2457f5e5ef2386f4b9d2f18eed7f5f36, type: 3}
-  powerUp: {fileID: 997089924}
+  powerUp: {fileID: 0}
   player: {fileID: 0}
   gameOverText: {fileID: 0}
   startSpawning: 2
@@ -26166,7 +26166,7 @@ MonoBehaviour:
   - {fileID: 3658097104495827780, guid: 673509d62b36022409a4c0d509fb09b0, type: 3}
   - {fileID: 462049546815394955, guid: 60946feb7ba91424bb88fef8d4e626f2, type: 3}
   - {fileID: 7385169520966151155, guid: 2457f5e5ef2386f4b9d2f18eed7f5f36, type: 3}
-  powerUp: {fileID: 1852366585074374943, guid: 6a4d0ee3f8068444fae0e2e7580c7b87, type: 3}
+  powerUp: {fileID: 0}
   player: {fileID: 0}
   gameOverText: {fileID: 0}
   startSpawning: 2
@@ -29626,12 +29626,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.999991, y: 0, z: 20.000004}
   m_Center: {x: -2.4999878, y: 0, z: 0.000000067055225}
---- !u!1 &997089924 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1852366585074374943, guid: 6a4d0ee3f8068444fae0e2e7580c7b87,
-    type: 3}
-  m_PrefabInstance: {fileID: 1852366584044216138}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1001678053
 GameObject:
   m_ObjectHideFlags: 0
@@ -40545,9 +40539,9 @@ Transform:
   m_LocalPosition: {x: -2.490141, y: 1.7612343, z: 16.302181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1717769828}
   - {fileID: 1312232381}
   - {fileID: 2093379048}
-  - {fileID: 1717769828}
   - {fileID: 1818963094}
   - {fileID: 1805372486}
   - {fileID: 1529162905}
@@ -51210,7 +51204,7 @@ Transform:
   - {fileID: 1088789055}
   - {fileID: 2076813528}
   m_Father: {fileID: 1385500138}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1718416927
 PrefabInstance:

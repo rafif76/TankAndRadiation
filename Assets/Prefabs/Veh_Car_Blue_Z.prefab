@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 6695773142847138792}
   - component: {fileID: 3658097104317348505}
   - component: {fileID: 8314539735133775872}
+  - component: {fileID: 114098809010710750}
   m_Layer: 0
   m_Name: Veh_Car_Blue_Z
   m_TagString: Cars
@@ -493,3 +494,17 @@ MonoBehaviour:
   topBounds: 67
   lowerBounds: -47
   yLowerBounds: -5
+--- !u!114 &114098809010710750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3658097104495827780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca97c674dae940b09635e4474be22eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystems: {fileID: 7554621953983302378, guid: 5a3760dd705dd49c7b841271d6e3fd28,
+    type: 3}

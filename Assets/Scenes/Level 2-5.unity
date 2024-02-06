@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4104,6 +4104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnManager2object: {fileID: 0}
   spawnManager3object: {fileID: 0}
+  newSkyboxMaterial: {fileID: 0}
   intPowerUpTransferdatabetweenScript: 0
   floatMovementdatabetweenScript: 0
   repeatTimePowerUpbetweenScript: 0
@@ -25730,6 +25731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnManager2object: {fileID: 1837185199}
   spawnManager3object: {fileID: 876905363}
+  newSkyboxMaterial: {fileID: 0}
   intPowerUpTransferdatabetweenScript: 0
   floatMovementdatabetweenScript: 0
   repeatTimePowerUpbetweenScript: 0
@@ -26703,7 +26705,7 @@ MonoBehaviour:
   - {fileID: 3658097104495827780, guid: 673509d62b36022409a4c0d509fb09b0, type: 3}
   - {fileID: 462049546815394955, guid: 60946feb7ba91424bb88fef8d4e626f2, type: 3}
   - {fileID: 7385169520966151155, guid: 2457f5e5ef2386f4b9d2f18eed7f5f36, type: 3}
-  powerUp: {fileID: 1852366585074374943, guid: 6a4d0ee3f8068444fae0e2e7580c7b87, type: 3}
+  powerUp: {fileID: 0}
   player: {fileID: 0}
   gameOverText: {fileID: 0}
   startSpawning: 2
@@ -54130,7 +54132,7 @@ MonoBehaviour:
   - {fileID: 3658097104495827780, guid: 673509d62b36022409a4c0d509fb09b0, type: 3}
   - {fileID: 462049546815394955, guid: 60946feb7ba91424bb88fef8d4e626f2, type: 3}
   - {fileID: 7385169520966151155, guid: 2457f5e5ef2386f4b9d2f18eed7f5f36, type: 3}
-  powerUp: {fileID: 1852366585074374943, guid: 6a4d0ee3f8068444fae0e2e7580c7b87, type: 3}
+  powerUp: {fileID: 0}
   player: {fileID: 0}
   gameOverText: {fileID: 0}
   startSpawning: 2

@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 131050417154818105}
   - component: {fileID: 7005048030933757966}
   - component: {fileID: 3483410147100882409}
+  - component: {fileID: 114396093713583802}
   m_Layer: 0
   m_Name: Veh_Van_Green_Z (1)
   m_TagString: Cars
@@ -401,6 +402,20 @@ MonoBehaviour:
   topBounds: 67
   lowerBounds: -47
   yLowerBounds: -5
+--- !u!114 &114396093713583802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385169520966151155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca97c674dae940b09635e4474be22eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystems: {fileID: 7554621953983302378, guid: 5a3760dd705dd49c7b841271d6e3fd28,
+    type: 3}
 --- !u!1 &7385169520966168435
 GameObject:
   m_ObjectHideFlags: 0

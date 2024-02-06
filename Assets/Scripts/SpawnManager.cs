@@ -27,6 +27,7 @@ public class SpawnManager : MonoBehaviour
     private float repeatRatePow = 4f;
 
 
+
     private bool once = false;
 
     // public float spawningInterval = 1.5f;
@@ -35,9 +36,12 @@ public class SpawnManager : MonoBehaviour
     // public float maxSpawningInterval = 2.0f;
 
 
+    public int maxSpawnCount = 10;
+
+    private int currentSpawnCount = 0;
 
 
-   
+
 
     private void Start()
     {
@@ -104,7 +108,8 @@ public class SpawnManager : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(spawnPosX, spawnPosY, Random.Range(spawnPosZ,spawnPosZmax));
 
-        int carsIndex = Random.Range(0, cars.Length);
+        int carsIndex = Random.Range(0, cars.Length); // <- ini gajadi diubah jadi public, karena alasan kebutuhan PlayerBehaviourScript mau manggil partikel
+
        
       
         Instantiate(cars[carsIndex], spawnPos, cars[carsIndex].transform.rotation);
@@ -113,8 +118,12 @@ public class SpawnManager : MonoBehaviour
     void SpawnPowerUp()
     {
         // spawn powerup
+        if (currentSpawnCount < maxSpawnCount)
+        {
+            Instantiate(powerUp, GenerateSpawnPosition(), transform.rotation);
+            Debug.Log("Spawned Prefab: " + currentSpawnCount);
+        }
 
-        Instantiate(powerUp, GenerateSpawnPosition(), transform.rotation);
 
     }
 

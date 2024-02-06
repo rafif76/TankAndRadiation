@@ -11,15 +11,19 @@ public class PlayerBehaviourScript : MonoBehaviour
     float verticalInput;
     public bool gameOver = false;
     public AudioClip crashSound;
+    public AudioClip powerUpTaking;
     private AudioSource playerAudio;
     private Rigidbody playerRb;
     private Animator playerAnim;
     public GameObject powerupindicator;
     public GameObject player;
-    private Camera mainCamera;
-    private MenuManager menuManager;
     private GameObject instancePowerIndicatorPrefab;
-    private LevelManager levelManager;
+
+
+    private Camera mainCamera;
+    [SerializeField] private GameObject particleSystems;
+
+
 
 
     private float FinishBounds = 390f;
@@ -27,14 +31,21 @@ public class PlayerBehaviourScript : MonoBehaviour
     private float lowerBounds = -47f;
     private float yLowerBounds = -5f;
 
-    private bool hasPowerUp = false;
+    public bool hasPowerUp = false;
     Vector3 offsetKamera = new Vector3(0, 5, -7);
     private Vector3 initialPos = new Vector3(0, 0, 0);
 
     private bool triggerEntered = false;
     private int waitForSecondsPublicVariable;
+    private ParticleSystem particleSystem;
+    private SpawnManager spawnManager;
+    private MenuManager menuManager;
+    private LevelManager levelManager;
+    private CarsBehaviour carsBehaviour;
 
+    private CarsBehaviour[] carsBehaviours;
 
+    Vector3 pos;
 
 
 
@@ -57,6 +68,8 @@ public class PlayerBehaviourScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        particleSystem = particleSystems.GetComponent<ParticleSystem>();
+        spawnManager = GetComponent<SpawnManager>();
 
 
         playerRb = GetComponent<Rigidbody>();
@@ -64,16 +77,22 @@ public class PlayerBehaviourScript : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         //gameManager = GameObject.Find("gameOver").GetComponent<GameManager>();
 
+        levelManager = FindObjectOfType<LevelManager>();
         menuManager = FindObjectOfType<MenuManager>();
         mainCamera = Camera.main;
         //prefabInstance = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
-       
 
-        levelManager = FindObjectOfType<LevelManager>();
+        carsBehaviours = FindObjectsOfType<CarsBehaviour>();
+
+
 
         terimaData(levelManager.intPowerUpTransferdatabetweenScript);
 
 
+        if (particleSystems == null)
+        {
+            Debug.LogError("Particle System tidak ditemukan pada game objek pemain.");
+        }
 
     }
 
@@ -85,10 +104,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
         PlayerBounds();
 
-
-
-        Debug.Log(" test variabel" + waitForSecondsPublicVariable.ToString());
-
+        takingPos();
 
 
     }
@@ -100,7 +116,7 @@ public class PlayerBehaviourScript : MonoBehaviour
 
 
 
-        GameManager gameManager = FindObjectOfType<GameManager>();
+           GameManager gameManager = FindObjectOfType<GameManager>();
 
 
 
@@ -157,6 +173,8 @@ public class PlayerBehaviourScript : MonoBehaviour
         cameraOon();
 
 
+
+
         if (gameObject.activeSelf) //if condition for prevent codes error
         {
 
@@ -198,10 +216,11 @@ public class PlayerBehaviourScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Cars") && hasPowerUp )
         {
             playerAudio.PlayOneShot(crashSound, 1.0f);
+    
             Destroy(collision.gameObject);
-            StartCoroutine(PowerupCountdownRoutine(waitForSecondsPublicVariable, false));
+            playParticle();
 
-       
+            StartCoroutine(PowerupCountdownRoutine(waitForSecondsPublicVariable, false));
         }
 
 
@@ -212,6 +231,7 @@ public class PlayerBehaviourScript : MonoBehaviour
           if (other.CompareTag("PowerUp"))
             {
             hasPowerUp = true;
+            playerAudio.PlayOneShot(powerUpTaking, 1.0f);
             Destroy(other.gameObject);
             //powerupindicator.gameObject.SetActive(true);
             instancePowerIndicatorPrefab = Instantiate(powerupindicator, transform.position + new Vector3(0, 5f, 1), transform.rotation);
@@ -242,7 +262,27 @@ public class PlayerBehaviourScript : MonoBehaviour
    
     }
 
+    private void takingPos()
+    {
+
+        foreach (CarsBehaviour enemyScript in carsBehaviours)
+        {
+            pos = enemyScript.gameObject.transform.position;
 
 
+        }
+    }
 
-}
+    private void playParticle()
+    {
+
+
+        int carsIndex = Random.Range(0, spawnManager.cars.Length);
+
+        // Mainkan partikel effect.
+        Instantiate(particleSystems, spawnManager.cars[carsIndex].transform.position + new Vector3(0f,0f,10f), Quaternion.identity);
+            particleSystem.Play();
+
+    }
+
+ }
