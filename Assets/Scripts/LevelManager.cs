@@ -21,14 +21,22 @@ public class LevelManager : MonoBehaviour
     public int intPowerUpTransferdatabetweenScript;
     public float floatMovementdatabetweenScript;
     public float repeatTimePowerUpbetweenScript;
+    public float speedDecreaseBetweenScript;
+    public float MaxPlayerGoesMeterBetweenScript;
+
 
     public TextMeshProUGUI levelText;
 
+    private Material otherSkyboxMaterial;
+    bool boolean = true;
 
+ 
 
     // Start is called before the first frame update
     void Start()
     {
+
+
         moveFoward = FindObjectOfType<MoveFoward>();
         spawnManager = FindObjectOfType<SpawnManager>();
 
@@ -49,9 +57,8 @@ public class LevelManager : MonoBehaviour
 
         levelText.text = "Level : " + level.ToString();
 
-
-
         levelManaging();
+
 
 
     }
@@ -68,7 +75,7 @@ public class LevelManager : MonoBehaviour
     {
 
         level++;
-        PlayerPrefs.SetInt("level", level++);
+        PlayerPrefs.SetInt("level", level);
         PlayerPrefs.Save();
 
 
@@ -91,6 +98,12 @@ public class LevelManager : MonoBehaviour
     {
 
         repeatTimePowerUpbetweenScript = data;
+    }
+
+    private void speedtime(float data)
+    {
+
+        speedDecreaseBetweenScript = data;
     }
 
     public void levelManaging( )
@@ -121,89 +134,136 @@ public class LevelManager : MonoBehaviour
 
                else if (i == 2)
                 {
-                    setValueForwaitForSeconds(8);
+               // otherSkyboxMaterial = Resources.Load<Material>("Assets/Free HDR Skyboxes Pack/Material/sky-1.mat");
+                //changeSky(otherSkyboxMaterial);
+
+                  
+
+
+
+            setValueForwaitForSeconds(8);
                     setValueForMovementEnemySpeed(10f);
 
+                   
                     Debug.Log(" LEVEL " + i + " pada if terdeteksi");
-
+                    
 
                 }
                 else if (i == 3)
                 {
-            //directionalLightMatiin
 
-            Material otherSkyboxMaterial = Resources.Load<Material>("Assets/Custom/Custom Dark Material for Skybox.mat");
-                 setValueForwaitForSeconds(8);
-            changeSky(otherSkyboxMaterial);
+                //directionalLightMatiin
+                otherSkyboxMaterial = Resources.Load<Material>("Assets/Free HDR Skyboxes Pack/Material/sky-1.mat");
 
 
-
-                 Debug.Log(" LEVEL " + i + " pada if terdeteksi");
-                 setValuePowerTime(3f);
+                 
 
 
+                setValueForwaitForSeconds(8);
+                Debug.Log(" LEVEL " + i + " pada if terdeteksi");
+                setValuePowerTime(3f);
+                speedtime(2);
 
-                }
-                else if (i == 4)
+
+        }
+             else if (i == 4)
                 {
 
             //directionalLightMatiin
             //SkyGanti.
             //syk dome disable
             //object montain yang menglilingi di disable atau gak di agak bawahin
-            Material otherSkyboxMaterial = Resources.Load<Material>("Assets/Snow_mountain/snow_mountain/Materials/Snow_mountain_t1_2.mat");
-            
 
-            
+             
+
+               
+                    
+
+
+            otherSkyboxMaterial = Resources.Load<Material>("Assets/Snow_mountain/snow_mountain/Materials/Snow_mountain_t1_2.mat");
 
             setValueForwaitForSeconds(6);
                     setValueForMovementEnemySpeed(35f);
                      setValuePowerTime(5f);
-
+                speedtime(4);
                  Debug.Log(" LEVEL " + i + " pada if terdeteksi");
 
-                }
-                else if (i == 5)
-                {   
-            
-                    setValuePowerTime(12f);
+        
+
+        }
+        else if (i == 5)
+                {
+
+
+          
+
+            setValuePowerTime(12f);
                     setValueForwaitForSeconds(6);
                     setValueForMovementEnemySpeed(35f);
-                    spawnManager2object.SetActive(true);
-            
-                    Debug.Log(" LEVEL " + i + " pada if terdeteksi");
+                     speedDecreaseBetweenScript = 6;
+                    MaxPlayerGoesMeterBetweenScript = 500f;
 
+
+
+                spawnManager2object.SetActive(true);
+
+                    Debug.Log(" LEVEL " + i + " pada if terdeteksi");
+                
 
         }
 
 
 
         // PR BLOM di otak atik
-                else if (i == 6)
+        else if (i == 6)
                 {
-                    setValueForwaitForSeconds( 4);
-                 
-                    setValuePowerTime(16f);
+
+
+            if (i != 6)
+            {
+                SceneManager.LoadScene("Level 5 - 8");
+                boolean = false;
+            }
+
+            setValueForwaitForSeconds( 4);
+                 setValueForMovementEnemySpeed(15f);
+
+            setValuePowerTime(16f);
+                speedtime(7);
 
                 spawnManager3object.SetActive(true);
                 spawnManager2object.SetActive(true);
                 Debug.Log(" LEVEL " + i + " pada if terdeteksi");
 
-                }
-                else if (i == 7)
+
+        }
+        else if (i == 7)
                 {
-                    setValueForwaitForSeconds(4);
+
+            if (i != 7)
+            {
+                SceneManager.LoadScene("Level 5 - 8");
+                boolean = false;
+            }
+
+            setValueForwaitForSeconds(4);
       
                  setValueForMovementEnemySpeed(35f);
                  setValuePowerTime(18f);
+            speedtime(8);
 
-                spawnManager3object.SetActive(true);
+            MaxPlayerGoesMeterBetweenScript = 1000f;
+
+
+            spawnManager3object.SetActive(true);
                  spawnManager2object.SetActive(true);
                 Debug.Log(" LEVEL " + i + " pada if terdeteksi");
+            
 
 
-                }
-                else if (i == 8)
+
+        }
+        else if (i == 8)
                 {
   
                 setValueForMovementEnemySpeed(50f);
@@ -213,18 +273,74 @@ public class LevelManager : MonoBehaviour
                 spawnManager3object.SetActive(true);
                  spawnManager2object.SetActive(true);
                  Debug.Log(" LEVEL " + i + " pada if terdeteksi");
-
-                }
-
+            speedtime(10);
 
 
+        } 
 
+
+
+
+    }
+
+    public void sceneChanger()
+    {
+
+        int i = level;
+
+        if (i == 0)
+        {
+            //continuebuton.continue disapper
+            //
+        }
+
+        
+        else if (i == 2)
+        {
+            if (SceneManager.GetActiveScene().name != "Level 2-5")
+            {
+                SceneManager.LoadScene("Level 2-5");
+
+            }
+        }
+        else if (i == 3)
+        {
+            if (SceneManager.GetActiveScene().name != "Level 2-5 Edited Enviroment")
+            {
+                SceneManager.LoadScene("Level 2-5 Edited Enviroment");
+            }
+
+        } else if (i == 4)
+        {
+            SceneManager.LoadScene("Level 2-5 Edited Enviroment");
+
+        }
+        else if (i == 5)
+        {
+            if (SceneManager.GetActiveScene().name != "Level 5 - 8")
+            {
+                SceneManager.LoadScene("Level 5 - 8");
             }
 
 
+        }
+        else if (i == 6)
+        {
+            SceneManager.LoadScene("Level 5 - 8");
 
+        }
+        else if (i == 7)
+        {
+            SceneManager.LoadScene("Level 5 - 8");
 
-    private void changeSky(Material material)
+        }
+        else if (i == 8)
+        {
+
+        }
+    }
+
+        private void changeSky(Material material)
     {
        
             // Ganti Skybox

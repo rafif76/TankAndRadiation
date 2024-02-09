@@ -13,7 +13,6 @@ public class SpawnManager : MonoBehaviour
     LevelManager levelManager;
 
 
-    public TextMeshProUGUI gameOverText;
 
     float spawnPosZ = 63;
     float spawnPosZmax = 380;

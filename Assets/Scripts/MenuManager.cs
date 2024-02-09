@@ -13,7 +13,6 @@ public class MenuManager : MonoBehaviour
     public GameObject miscManager;
     public GameObject panelmenu;
     public GameObject player;
-    public Button retryButton;
  
 
 
@@ -38,6 +37,11 @@ public class MenuManager : MonoBehaviour
     }
 
 
+    public void quitGame()
+    {
+        Application.Quit();
+    }
+
     public void retryGameVoid()
     {
 
@@ -55,30 +59,24 @@ public class MenuManager : MonoBehaviour
         //score
         //level
 
-        SceneManager.LoadScene("Level 2-5");
+        SceneManager.LoadScene("Level 2-5 Edited Enviroment");
 
 
     }
 
 
-
-
-    public void botForClickRetry()
+    public void newGame()
     {
-        panelmenu.SetActive(false);
-        miscManager.SetActive(true);
-        player.SetActive(true);
+
+      
+        SceneManager.LoadScene("PersonalProjectRafif Main Menu dan Level 1");
+
+
     }
 
 
-    public void nextLevelButtonClick()
-    {
-        SceneManager.LoadScene("Level 2-5");
 
-     //  PlayerPrefs.SetInt("level", levelManager.level++);
-     //  PlayerPrefs.Save();
-
-    }
+  
 
 
 

@@ -8,8 +8,9 @@ public class CarsBehaviour : MonoBehaviour
 
 
     [SerializeField] private GameObject _particleSystems;
-    private PlayerBehaviourScript playerBehaviourScript;
     private ParticleSystem particleSyste;
+
+    private PlayerBehaviourScript playerBehaviourScript;
 
 
     // Start is called before the first frame update

@@ -21,33 +21,46 @@ public class PlayerBehaviourScript : MonoBehaviour
 
 
     private Camera mainCamera;
-    [SerializeField] private GameObject particleSystems;
 
 
 
 
-    private float FinishBounds = 390f;
+
+    private float FinishBounds = 430f;
     private float topBounds = 71f;
     private float lowerBounds = -47f;
     private float yLowerBounds = -5f;
+    private float rotationZLowerBounds1 = 90f;
+    private float rotationZLowerBounds2 = 270f;
 
     public bool hasPowerUp = false;
+    public bool particleHasPlayed = false;
     Vector3 offsetKamera = new Vector3(0, 5, -7);
     private Vector3 initialPos = new Vector3(0, 0, 0);
 
     private bool triggerEntered = false;
     private int waitForSecondsPublicVariable;
-    private ParticleSystem particleSystem;
+    [SerializeField] private GameObject _particleSystems;
+    private ParticleSystem particleSyste;
+
+
     private SpawnManager spawnManager;
     private MenuManager menuManager;
     private LevelManager levelManager;
     private CarsBehaviour carsBehaviour;
+    private MeshCollider meshCollider;
+
 
     private CarsBehaviour[] carsBehaviours;
+    GameObject[] objectsWithTag;
+    private float speedDecrease;
 
-    Vector3 pos;
+    Vector3 sudutEulerUntukRotasi;
+    Quaternion rotasi;
 
-
+    public float distance = -7.0f;  // Jarak antara kamera dan target
+    public float height = 5.0f;  // Ketinggian kamera dari target
+    public float smoothSpeed = 5.0f;  // Kecepatan perubahan posisi dan rotasi kamera
 
 
     /*
@@ -65,10 +78,21 @@ public class PlayerBehaviourScript : MonoBehaviour
     }
 
 
+    private void terimaDataSpeed(float data)
+    {
+        speedDecrease = data;
+    }
+
+    private void terimaDataMaxDistancePlayerGoes(float data)
+    {
+        FinishBounds = data;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        particleSystem = particleSystems.GetComponent<ParticleSystem>();
+        particleSyste = _particleSystems.GetComponent<ParticleSystem>();
+
         spawnManager = GetComponent<SpawnManager>();
 
 
@@ -83,13 +107,19 @@ public class PlayerBehaviourScript : MonoBehaviour
         //prefabInstance = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
 
         carsBehaviours = FindObjectsOfType<CarsBehaviour>();
+        objectsWithTag = GameObject.FindGameObjectsWithTag("PowerUp");
 
-
+      
 
         terimaData(levelManager.intPowerUpTransferdatabetweenScript);
+        terimaDataSpeed(levelManager.speedDecreaseBetweenScript);
+        managingTheFinishBound();
 
 
-        if (particleSystems == null)
+
+
+
+        if (_particleSystems == null)
         {
             Debug.LogError("Particle System tidak ditemukan pada game objek pemain.");
         }
@@ -101,12 +131,35 @@ public class PlayerBehaviourScript : MonoBehaviour
     private void Update()
     {
 
+    //deteksi rotasi
+        rotasi = transform.rotation;
+        sudutEulerUntukRotasi = rotasi.eulerAngles;
+
 
         PlayerBounds();
 
-        takingPos();
 
 
+
+
+        Debug.Log("the power up time is " + waitForSecondsPublicVariable);
+
+
+    }
+
+    private void managingTheFinishBound()
+    {
+        float distance = levelManager.MaxPlayerGoesMeterBetweenScript;
+
+        if (distance != 0)
+        {
+
+        terimaDataMaxDistancePlayerGoes(levelManager.MaxPlayerGoesMeterBetweenScript);
+
+        }
+
+
+            
     }
 
 
@@ -122,45 +175,95 @@ public class PlayerBehaviourScript : MonoBehaviour
 
 
         {
-            if (transform.position.z >= FinishBounds)
+
+            if (sudutEulerUntukRotasi.z >= rotationZLowerBounds1 && sudutEulerUntukRotasi.z <= rotationZLowerBounds2)
             {
+
+
+                playParticle();
+
+                if (particleSyste.isStopped)
+                {
+                    gameObject.SetActive(false);
+                    menuManager.callGameOverPanel();
+                    Debug.Log("Game Over! Payah!");
+                    StartCoroutine(PowerupCountdownRoutine(0, false));
+                    particleHasPlayed = false;
+
+                }
+
+
+
+            }
+
+
+            if (transform.position.z >= FinishBounds)
+            {       
+                
+
+
                 Debug.Log("Game Selesai ! Selamat !");
                 //Destroy(gameObject);
                 gameManager.GameOver();
                 gameObject.SetActive(false);
+
             }
 
             if (transform.position.x > topBounds)
 
             {
+                playParticle();
 
-                gameObject.SetActive(false);
-                menuManager.callGameOverPanel();
-                Debug.Log("Game Over! Payah!");
-                StartCoroutine(PowerupCountdownRoutine(0, false));
+                if (particleSyste.isStopped)
+                {
+                    gameObject.SetActive(false);
+                    menuManager.callGameOverPanel();
+                    Debug.Log("Game Over! Payah!");
+                    StartCoroutine(PowerupCountdownRoutine(0, false));
+                    particleHasPlayed = false;
 
-
+                }
             }
+
+
             if (transform.position.x < lowerBounds)
-            {
-                gameObject.SetActive(false);
-                menuManager.callGameOverPanel();
-                Debug.Log("Game Over! Payah!");
-                StartCoroutine(PowerupCountdownRoutine(0, false));
+            {         
+                
+                
+                playParticle();
 
-
+                if (particleSyste.isStopped)
+                {
+                    gameObject.SetActive(false);
+                    menuManager.callGameOverPanel();
+                    Debug.Log("Game Over! Payah!");
+                    StartCoroutine(PowerupCountdownRoutine(0, false));
+                    particleHasPlayed = false;
+                }
+        
 
             }
+
+
+
             if (transform.position.y < yLowerBounds)
 
             {
-                gameObject.SetActive(false);
-                menuManager.callGameOverPanel();
-                Debug.Log("Game Over! Payah!");
-                StartCoroutine(PowerupCountdownRoutine(0, false));
+                playParticle();
+
+                if (particleSyste.isStopped)
+                {
+                    gameObject.SetActive(false);
+                    menuManager.callGameOverPanel();
+                    Debug.Log("Game Over! Payah!");
+                    StartCoroutine(PowerupCountdownRoutine(0, false));
+                    particleHasPlayed = false;
+                }
+
 
 
             }
+
 
 
         }
@@ -170,6 +273,9 @@ public class PlayerBehaviourScript : MonoBehaviour
 
     void FixedUpdate()
     {
+
+
+
         cameraOon();
 
 
@@ -177,13 +283,15 @@ public class PlayerBehaviourScript : MonoBehaviour
 
         if (gameObject.activeSelf) //if condition for prevent codes error
         {
+           //Debug.Log("speed decreaser is: " + speedDecrease);
+
 
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
 
 
 
-            transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
+            transform.Translate(Vector3.forward * Time.deltaTime * (speed-speedDecrease) * verticalInput);
             transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
 
         }
@@ -216,9 +324,10 @@ public class PlayerBehaviourScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Cars") && hasPowerUp )
         {
             playerAudio.PlayOneShot(crashSound, 1.0f);
-    
+
             Destroy(collision.gameObject);
             // playParticle(); <- kita mngunakan scrpt yg berisi effek prtkel di msing2 gmeobjek cars.
+            meshCollider.enabled = false;
 
             StartCoroutine(PowerupCountdownRoutine(waitForSecondsPublicVariable, false));
         }
@@ -237,6 +346,8 @@ public class PlayerBehaviourScript : MonoBehaviour
             instancePowerIndicatorPrefab = Instantiate(powerupindicator, transform.position + new Vector3(0, 5f, 1), transform.rotation);
             StopAllCoroutines();
             StartCoroutine(PowerupCountdownRoutine(waitForSecondsPublicVariable, false));
+            playerRb.freezeRotation = true;
+
 
             triggerEntered = true;
 
@@ -246,31 +357,48 @@ public class PlayerBehaviourScript : MonoBehaviour
 
      IEnumerator PowerupCountdownRoutine(int WaitForSeconds, bool haspowerUp)
     {
-        yield return new WaitForSeconds(WaitForSeconds); hasPowerUp = haspowerUp; Destroy(instancePowerIndicatorPrefab); triggerEntered =false ;
+        yield return new WaitForSeconds(WaitForSeconds); hasPowerUp = haspowerUp; Destroy(instancePowerIndicatorPrefab) ; triggerEntered =false; playerRb.freezeRotation = false;
+
     }
 
-   
+
 
     private void cameraOon()
     {
        
             if (gameObject != null)
             {
+
+
             // Follow the player with an offset
-            mainCamera.transform.position = gameObject.transform.position + offsetKamera;
-            }
-   
-    }
+            // Vector3 targetPosition = gameObject.transform.position - transform.forward  * distance + Vector3.up * height;
 
-    private void takingPos()
-    {
+            // Pergi dari posisi kamera saat ini ke posisi target secara perlahan
+            //mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetPosition, smoothSpeed * Time.deltaTime);
 
-        foreach (CarsBehaviour enemyScript in carsBehaviours)
-        {
-            pos = enemyScript.gameObject.transform.position;
+            // Menghadap ke target
+            //mainCamera.transform.LookAt(gameObject.transform);
+
+            mainCamera.transform.position = transform.position + offsetKamera;
+           // mainCamera.transform.LookAt(gameObject.transform);
+            mainCamera.transform.rotation = transform.rotation;
 
 
         }
+
     }
 
- }
+
+    private void playParticle()
+    {
+
+        // Mainkan partikel effect.
+        Instantiate(_particleSystems, gameObject.transform.position, Quaternion.identity);
+        particleSyste.Play();
+        particleHasPlayed = true;
+
+
+}
+
+
+}
